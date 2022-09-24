@@ -23,6 +23,7 @@ const client = ipfsClient.create({
 function App() {
 
 	const[fileBuffer, setFileBuffer] = useState(null);
+	const[ipfsHash, setIpfsHash] = useState('');
 	const handleFile = async(e) => {
 		//first we select the file that was uploaded 
 		const file = e.target.files[0];
@@ -48,6 +49,7 @@ function App() {
 
 		const result  = await client.add(fileBuffer);
 		console.log(result)
+		setIpfsHash(result.path)
 	}
 
 	
@@ -70,6 +72,10 @@ function App() {
         </div>
         <div className="row">
 			<p className="lead">
+				{ipfsHash ? 
+				`Your file has been stored on IPFS and the hash is ${ipfsHash}`
+			:
+			''}
 			</p>
 		</div>
 		<div className="row">
